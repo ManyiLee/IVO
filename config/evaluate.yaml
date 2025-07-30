@@ -1,0 +1,16 @@
+    
+#---------General Setting----------#
+target: "SDv1.4"                     # The T2I model you want to attack
+torch_dtype: "float32"                        # Precision of parameter loaded in model
+ckpt_path: "./pretrained_weight/stable-diffusion-v1-4" # Path of model's checkpoint file
+                                     # Unlearning alternative choices
+                                     # ==>[Unlearn-Saliency, MACE, AdvUnlearn, SLD-weak, SLD-medium, SLD-strong, SLD-max]
+                                     # Normal generative model
+                                     # ==>[SDv1.4, SDxl, SDv2, SDv2.1, SDv3, ProteusV0.1, OpenDalleV1.1 ...]
+                                     #==================================================================================#
+seed: False                          # Fix the noise seed in Diffusion, default is False
+reuse: False                         # If reuse the successful adversarial prompt to generate image
+lpips: False
+device: "cuda"                       
+result_dir: "./figure/2025-05-14-T2I-Unlearn-Saliency-nudity_500/"
+file_name: "results.csv"

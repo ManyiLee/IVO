@@ -1,0 +1,35 @@
+
+#---------General Setting----------#
+target: "AdvUnlearn"                     # The T2I model you want to attack
+torch_dtype: "float32"                  # Precision of parameter loaded in model
+ckpt_path: "./pretrained_weight/stable-diffusion-v1-4" # Path of model's checkpoint file
+                                     # Unlearning alternative choices
+                                     # ==>[Unlearn-Saliency, MACE, AdvUnlearn, SLD-weak, SLD-medium, SLD-strong, SLD-max]
+                                     # Normal generative model
+                                     # ==>[SDv1.4, SDxl, SDv2, SDv2.1, SDv3, ProteusV0.1, OpenDalleV1.1 ...]
+                                     #==================================================================================#
+check_mode: "Nudity"                  # the safety filter applied to the system. Default ti_sd, alternative choices['ti_sd', 'i_clip', "i_image", "i_dogcat"]
+dataset: "i2p.txt"                 # txt file contains nsfw prompts. Default nsfw_200, alternative choices[]
+seed: True                           # Fix the noise seed in Diffusion, default is False
+reuse: False                         # If reuse the successful adversarial prompt to generate image
+device: "cuda"     
+ASR_N: 1                  
+
+#--------Customized Setting---------#
+task:
+    concept: "nudity"
+    target_image_dir: "/root/data2/myli/CAS/datasets/nsfw_data_scraper/raw_data/porn/IMAGES"
+    criterion: "l2"
+
+attacker: 
+    insertion_location: "prefix_k"
+    k: 5
+    iteration: 40 #40
+    seed_iteration: 1
+    attack_idx: 0
+    eval_seed: 200371
+    universal: False
+    sequential: True
+    text_grad:
+        lr: 0.01
+        weight_decay: 0.1

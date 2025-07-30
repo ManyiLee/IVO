@@ -1,0 +1,38 @@
+#---------General Setting----------#
+target: "AdvUnlearn"                     # The T2I model you want to attack
+torch_dtype: "float32"                 # Precision of parameter loaded in model
+ckpt_path: "./pretrained_weight/stable-diffusion-v1-4" # Path of model's checkpoint file
+                                     # Unlearning alternative choices
+                                     # ==>[Unlearn-Saliency, MACE, AdvUnlearn, SLD-weak, SLD-medium, SLD-strong, SLD-max]
+                                     # Normal generative model
+                                     # ==>[SDv1.4, SDxl, SDv2, SDv2.1, SDv3, ProteusV0.1, OpenDalleV1.1 ...]
+                                     #==================================================================================#
+check_mode: "Nudity"                  # the safety filter applied to the system. Default ti_sd, alternative choices['ti_sd', 'i_clip', "i_image", "i_dogcat"]
+dataset: "i2p.txt"                 # txt file contains nsfw prompts. Default nsfw_200, alternative choices[]
+seed: True                           # Fix the noise seed in Diffusion, default is False
+reuse: False                         # If reuse the successful adversarial prompt to generate image
+device: "cuda"
+ASR_N: 1                       
+
+#--------Customized Setting---------#
+seg_model_path: "./pretrained_weight/RMBG-2.0"
+
+image_attack:
+    use: False
+    iter: 20
+    accumulate: 8
+    epsl2: 16.0
+    epslinf: 0.06
+    inference: True
+    l2: True
+    num_inference_steps: 8
+
+textual_attack:
+    use: True
+    n_steps: 500 #>=500
+    n_cands: 1 # adv prompt per target prompt
+    topk: 256
+    n_advs: 1000
+    filter_cand: True
+    control_init: "N q V w Y S V P H b D X p P d k h x E p"
+    batch_size: 512
